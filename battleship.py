@@ -85,12 +85,61 @@ def user_input_to_coordinates_with_validation(user_input):
 
 
 def mark_on_board(shots_board, ships_board, row, col):     #ma być zmienna przyjeta od gracza, chyba user_move ==> sprawdzić w testach
-    range_of_search = [shots_board[row+1][col], shots_board[row-1][col], shots_board[row][col+1], shots_board[row][col-1]]
+    
+    range_of_search = [
+                    ships_board[row+1][col],
+                    ships_board[row-1][col],
+                    ships_board[row][col+1],
+                    ships_board[row][col-1]
+                    ] # ToDo: testowanie przypadku kiedy strzelamy w skrajne pola
 
-    if shots_board[row][col] == "0":
-        shots_board[row][col] == "M"
-        print("This is a missed shot!")
-        return shots_board
+ 
+    try:
+        if ships_board[row][col] == "X":
+            match shots_board[row][col]:
+                case "M":
+                    print("Shot's coordinate already used !")
+                    raise ValueError
+                case "S":
+                    print("Shot's coordinate already used ! Ship already sunk is located here !")
+                    raise ValueError
+                case "H":
+                    print("Shot's coordinate already used ! Ship's part already hit is located here !")
+                    raise ValueError                
+                case "0":
+                    if ships_board[row][col] == "X" and ships_board[row+1][col] != "X" and ships_board[row-1][col] != "X" and ships_board[row][col+1] != "X" and ships_board[row][col-1] != "X":
+                        shots_board[row][col] == "S"
+                        print("This is a hit! You sunk an opponent's ship")
+                    elif ships_board[row][col] == "X" or ships_board[row+1][col] == "X" or ships_board[row-1][col] == "X" or ships_board[row][col+1] == "X" or ships_board[row][col-1] == "X":
+                        shots_board[row][col] == "H"
+                        print("This is a hit! But your opponent's ship is still sailing!")
+                    return shots_board
+                    
+
+
+                    pass
+                # case "H":
+                #     pass
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        elif ships_board[row][col] == "O":
+                match shots_board[row][col]:
+                    case "M":
+                        print("Shot's coordinate already used !")
+                        raise ValueError
+                    case _:
+                        print("Yu've missed !")
+                        shots_board[row][col] = "M"
+
+    except:
+        pass
 
     elif shots_board[row][col] == "X" and shots_board[row+1][col] != "X" and shots_board[row-1][col] != "X" and shots_board[row][col+1] != "X" and shots_board[row][col-1] != "X":
         shots_board[row][col] == "S"
