@@ -8,11 +8,11 @@ CORRECT_INPUT_OPTION = ['a1', 'a2', 'a3', 'a4', 'a5',
 
 def get_empty_board():
     board = [
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"]
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0']
         ]
     print(board)
     return board
@@ -27,7 +27,7 @@ def list_all_available_coordinates(board):
     list_available_coordinates = []
     for row_index, row in enumerate(board):
         for item_index, item in enumerate(row):
-            if item == 'O':
+            if item == '0':
                 list_available_coordinates.append((row_index, item_index))
     return list_available_coordinates
 
@@ -45,8 +45,8 @@ def check_available_coordinate(board, row, col):
   
 
 
-def get_input_from_user():
-    user_input = input('Please enter a position (A-E and 1-5) or enter \q\ to quit: ')
+def get_input_from_user(player):
+    user_input = input(f'{player} please enter a position (A-E and 1-5) or enter \q\ to quit: ')
     return user_input
 
 def validate_user_input(user_input):
@@ -56,7 +56,7 @@ def validate_user_input(user_input):
     if user_input.lower() in CORRECT_INPUT_OPTION:
         return True
     else:
-        print(f"This position - {user_input} is not valid. Please, choose a correct position!")
+        print(f'This position - {user_input} is not valid. Please, choose a correct position!')
         return False
 
 def quit_game(user_input):
@@ -69,8 +69,8 @@ def quit_game(user_input):
 def user_input_to_coordinates_with_validation(user_input):          
     user_input = user_input.lower()
 
-    rows = {"a": 0, "b": 1, "c": 2, "d":3, "e":4}
-    cols = {"1": 0, "2": 1, "3": 2, "4":3, "5":4}
+    rows = {'a': 0, 'b': 1, 'c': 2, 'd':3, 'e':4}
+    cols = {'1': 0, '2': 1, '3': 2, '4':3, '5':4}
 
     if len(user_input) == 2 and (user_input[0] in rows.keys() and user_input[1] in cols.keys()):
         row = rows[user_input[0]]
@@ -78,7 +78,7 @@ def user_input_to_coordinates_with_validation(user_input):
     else:
         row = 'ERR'
         col = 'ERR'
-        print(f"This position - {user_input} is not valid. Please, choose a correct position!")
+        print(f'This position - {user_input} is not valid. Please, choose a correct position!')
 
     return row, col
 
@@ -92,46 +92,45 @@ def mark_on_board(shots_board, ships_board, row, col):     #ma być zmienna przy
                     ships_board[row][col+1],
                     ships_board[row][col-1]
                     ] # ToDo: testowanie przypadku kiedy strzelamy w skrajne pola
-    if ships_board[row][col] == "X":
+    if ships_board[row][col] == 'X':
         match shots_board[row][col]:
-            case "M":
-                print("Shot's coordinate already used !")
+            case 'M':
+                print('Shot\'s coordinate already used !')
                 wheather_shots_repetion_necessary = True
-            case "S":
-                print("Shot's coordinate already used ! Ship already sunk is located here !")
+            case 'S':
+                print('Shot\'s coordinate already used ! Ship already sunk is located here !')
                 wheather_shots_repetion_necessary = True
-            case "H":
-                print("Shot's coordinate already used ! Ship's part already hit is located here !")
+            case 'H':
+                print('Shot\'s coordinate already used ! Ship\'s part already hit is located here !')
                 wheather_shots_repetion_necessary = True                
-            case "0":
-                # ten if to przypadek jeżeli dookoła nie ma "X"-ów
-                if ships_board[row][col] == "X" and ships_board[row+1][col] != "X" and ships_board[row-1][col] != "X" and ships_board[row][col+1] != "X" and ships_board[row][col-1] != "X":
-                    shots_board[row][col] = "S"
-                    print("This is a hit! You sunk an opponent's ship")
-                elif ships_board[row][col] == "X" and (ships_board[row+1][col] == "X" or ships_board[row-1][col] == "X" or ships_board[row][col+1] == "X" or ships_board[row][col-1] == "X"):
-                    shots_board[row][col] = "H"
-                    print("This is a hit! But your opponent's ship is still sailing!")
-                else:
-                    ships_board[row][col] == "X" and (shots_board[row+1][col] == "H" or shots_board[row-1][col] == "H" or shots_board[row][col+1] == "H" or shots_board[row][col-1] == "H")
-                    shots_board[row][col] = "S"
-                    if shots_board[row+1][col] == "H":
-                        shots_board[row+1][col] = "S"
-                    elif shots_board[row-1][col] == "H":
-                        shots_board[row-1][col] = "S"
-                    elif shots_board[row][col+1] == "H":
-                        shots_board[row][col+1] = "S"
-                    elif shots_board[row][col-1] == "H":
-                        shots_board[row][col-1] = "S"
-                    print("This is a hit! You sunk an opponent's ship")
+            case '0':
+                # ten if to przypadek jeżeli dookoła nie ma 'X'-ów
+                if ships_board[row][col] == 'X' and ships_board[row+1][col] != 'X' and ships_board[row-1][col] != 'X' and ships_board[row][col+1] != 'X' and ships_board[row][col-1] != 'X':
+                    shots_board[row][col] = 'S'
+                    print('This is a hit! You sunk an opponent\'s ship')
+                elif ships_board[row][col] == 'X' and (shots_board[row+1][col] == 'H' or shots_board[row-1][col] == 'H' or shots_board[row][col+1] == 'H' or shots_board[row][col-1] == 'H'):
+                    shots_board[row][col] = 'S'
+                    if shots_board[row+1][col] == 'H':
+                        shots_board[row+1][col] = 'S'
+                    elif shots_board[row-1][col] == 'H':
+                        shots_board[row-1][col] = 'S'
+                    elif shots_board[row][col+1] == 'H':
+                        shots_board[row][col+1] = 'S'
+                    elif shots_board[row][col-1] == 'H':
+                        shots_board[row][col-1] = 'S'
+                    print('This is a hit! You sunk an opponent\'s ship')
+                elif ships_board[row][col] == 'X' and (ships_board[row+1][col] == 'X' or ships_board[row-1][col] == 'X' or ships_board[row][col+1] == 'X' or ships_board[row][col-1] == 'X'):
+                    shots_board[row][col] = 'H'
+                    print('This is a hit! But your opponent\'s ship is still sailing!')
                 wheather_shots_repetion_necessary = False
-    elif ships_board[row][col] == "0":
+    elif ships_board[row][col] == '0':
             match shots_board[row][col]:
-                case "M":
-                    print("Shot's coordinate already used !")
+                case 'M':
+                    print('Shot\'s coordinate already used !')
                     wheather_shots_repetion_necessary = True
                 case _:
-                    print("You've missed !")
-                    shots_board[row][col] = "M"
+                    print('You\'ve missed !')
+                    shots_board[row][col] = 'M'
                     wheather_shots_repetion_necessary = False
     return shots_board, wheather_shots_repetion_necessary
 
@@ -148,35 +147,35 @@ def main():
 
 
     players_1_ships_board = [
-        ["X", "X", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "X", "0", "0"],
-        ["0", "0", "0", "X", "0"],
-        ["0", "0", "0", "0", "0"]
+        ['X', 'X', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', 'X', '0', '0'],
+        ['0', '0', '0', 'X', '0'],
+        ['0', '0', '0', '0', '0']
         ]
 
     players_1_shots_board = [
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"]
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0']
         ]
 
     players_2_ships_board = [
-        ["X", "X", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "X", "0", "0"],
-        ["0", "0", "0", "X", "0"],
-        ["0", "0", "0", "0", "0"]
+        ['X', 'X', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', 'X', '0', '0'],
+        ['0', '0', '0', 'X', '0'],
+        ['0', '0', '0', '0', '0']
         ]
 
     players_2_shots_board = [
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"]
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0']
         ]
 
 
@@ -186,10 +185,10 @@ def main():
     while game_run_indicator == True:
 
         match player:
-            case "Player 1":
+            case 'Player 1':
                 shots_board = players_1_shots_board
                 ships_board = players_2_ships_board
-            case "Player 2":
+            case 'Player 2':
                 shots_board = players_2_shots_board
                 ships_board = players_1_ships_board
 
@@ -199,29 +198,29 @@ def main():
             while row == 'ERR' and col == 'ERR':
                 validation_indicator_1 = False
                 while validation_indicator_1 == False:
-                    user_input = get_input_from_user()
+                    user_input = get_input_from_user(player)
                     validation_indicator_1 = validate_user_input(user_input)
                 row, col = user_input_to_coordinates_with_validation(user_input)
             validation_indicator_2 = check_available_coordinate(shots_board, row, col)
 
-    try:
+            try:
 
-        wheather_shots_repetion_necessary = True
-        while wheather_shots_repetion_necessary == True:
-            shots_board, wheather_shots_repetion_necessary = mark_on_board(shots_board, ships_board, row, col)
+                wheather_shots_repetion_necessary = True
+                while wheather_shots_repetion_necessary == True:
+                    shots_board, wheather_shots_repetion_necessary = mark_on_board(shots_board, ships_board, row, col)
 
-    except:
-        print ('Error while marking on shot\'s board')
+            except:
+                print ('Error while marking on shot\'s board')
         
-        match player:
-            case "Player 1":
-                players_1_shots_board = shots_board
-                player = 'Player 2'
-            case "Player 2":
-                players_2_shots_board = shots_board
-                player = 'Player 1'
-       
-        print (shots_board)
+            match player:
+                case 'Player 1':
+                    players_1_shots_board = shots_board
+                    player = 'Player 2'
+                case 'Player 2':
+                    players_2_shots_board = shots_board
+                    player = 'Player 1'
+        
+            print (shots_board)
 
 
 
