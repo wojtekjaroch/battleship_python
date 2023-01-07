@@ -8,11 +8,11 @@ CORRECT_INPUT_OPTION = ['a1', 'a2', 'a3', 'a4', 'a5',
 
 def get_empty_board():
     board = [
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"]
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"]
         ]
     print(board)
     return board
@@ -124,7 +124,7 @@ def mark_on_board(shots_board, ships_board, row, col):     #ma być zmienna przy
                         shots_board[row][col-1] = "S"
                     print("This is a hit! You sunk an opponent's ship")
                 wheather_shots_repetion_necessary = False
-    elif ships_board[row][col] == "O":
+    elif ships_board[row][col] == "0":
             match shots_board[row][col]:
                 case "M":
                     print("Shot's coordinate already used !")
@@ -148,35 +148,35 @@ def main():
 
 
     players_1_ships_board = [
-        ["X", "X", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "X", "O", "O"],
-        ["O", "O", "O", "X", "O"],
-        ["O", "O", "O", "O", "O"]
+        ["X", "X", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "X", "0", "0"],
+        ["0", "0", "0", "X", "0"],
+        ["0", "0", "0", "0", "0"]
         ]
 
     players_1_shots_board = [
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"]
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"]
         ]
 
     players_2_ships_board = [
-        ["X", "X", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "X", "O", "O"],
-        ["O", "O", "O", "X", "O"],
-        ["O", "O", "O", "O", "O"]
+        ["X", "X", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "X", "0", "0"],
+        ["0", "0", "0", "X", "0"],
+        ["0", "0", "0", "0", "0"]
         ]
 
     players_2_shots_board = [
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"],
-        ["O", "O", "O", "O", "O"]
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0"]
         ]
 
 
