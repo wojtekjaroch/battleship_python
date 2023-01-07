@@ -117,6 +117,7 @@ def mark_on_board(shots_board, ships_board, row, col):     #ma być zmienna przy
                     
 
 
+
                     pass
                 # case "H":
                 #     pass
