@@ -92,96 +92,52 @@ def mark_on_board(shots_board, ships_board, row, col):     #ma być zmienna przy
                     ships_board[row][col+1],
                     ships_board[row][col-1]
                     ] # ToDo: testowanie przypadku kiedy strzelamy w skrajne pola
-
- 
-    try:
-        if ships_board[row][col] == "X":
+    if ships_board[row][col] == "X":
+        match shots_board[row][col]:
+            case "M":
+                print("Shot's coordinate already used !")
+                wheather_shots_repetion_necessary = True
+            case "S":
+                print("Shot's coordinate already used ! Ship already sunk is located here !")
+                wheather_shots_repetion_necessary = True
+            case "H":
+                print("Shot's coordinate already used ! Ship's part already hit is located here !")
+                wheather_shots_repetion_necessary = True                
+            case "0":
+                # ten if to przypadek jeżeli dookoła nie ma "X"-ów
+                if ships_board[row][col] == "X" and ships_board[row+1][col] != "X" and ships_board[row-1][col] != "X" and ships_board[row][col+1] != "X" and ships_board[row][col-1] != "X":
+                    shots_board[row][col] = "S"
+                    print("This is a hit! You sunk an opponent's ship")
+                elif ships_board[row][col] == "X" and (ships_board[row+1][col] == "X" or ships_board[row-1][col] == "X" or ships_board[row][col+1] == "X" or ships_board[row][col-1] == "X"):
+                    shots_board[row][col] = "H"
+                    print("This is a hit! But your opponent's ship is still sailing!")
+                else:
+                    ships_board[row][col] == "X" and (shots_board[row+1][col] == "H" or shots_board[row-1][col] == "H" or shots_board[row][col+1] == "H" or shots_board[row][col-1] == "H")
+                    shots_board[row][col] = "S"
+                    if shots_board[row+1][col] == "H":
+                        shots_board[row+1][col] = "S"
+                    elif shots_board[row-1][col] == "H":
+                        shots_board[row-1][col] = "S"
+                    elif shots_board[row][col+1] == "H":
+                        shots_board[row][col+1] = "S"
+                    elif shots_board[row][col-1] == "H":
+                        shots_board[row][col-1] = "S"
+                    print("This is a hit! You sunk an opponent's ship")
+                wheather_shots_repetion_necessary = False
+    elif ships_board[row][col] == "O":
             match shots_board[row][col]:
                 case "M":
                     print("Shot's coordinate already used !")
-                    raise ValueError
-                case "S":
-                    print("Shot's coordinate already used ! Ship already sunk is located here !")
-                    raise ValueError
-                case "H":
-                    print("Shot's coordinate already used ! Ship's part already hit is located here !")
-                    raise ValueError                
-                case "0":
-                    if ships_board[row][col] == "X" and ships_board[row+1][col] != "X" and ships_board[row-1][col] != "X" and ships_board[row][col+1] != "X" and ships_board[row][col-1] != "X":
-                        shots_board[row][col] == "S"
-                        print("This is a hit! You sunk an opponent's ship")
-                    elif ships_board[row][col] == "X" or ships_board[row+1][col] == "X" or ships_board[row-1][col] == "X" or ships_board[row][col+1] == "X" or ships_board[row][col-1] == "X":
-                        shots_board[row][col] == "H"
-                        print("This is a hit! But your opponent's ship is still sailing!")
-                    return shots_board
-                    
+                    wheather_shots_repetion_necessary = True
+                case _:
+                    print("You've missed !")
+                    shots_board[row][col] = "M"
+                    wheather_shots_repetion_necessary = False
+    return shots_board, wheather_shots_repetion_necessary
 
 
 
-                    pass
-                # case "H":
-                #     pass
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        elif ships_board[row][col] == "O":
-                match shots_board[row][col]:
-                    case "M":
-                        print("Shot's coordinate already used !")
-                        raise ValueError
-                    case _:
-                        print("Yu've missed !")
-                        shots_board[row][col] = "M"
 
-    except:
-        pass
-
-    elif shots_board[row][col] == "X" and shots_board[row+1][col] != "X" and shots_board[row-1][col] != "X" and shots_board[row][col+1] != "X" and shots_board[row][col-1] != "X":
-        shots_board[row][col] == "S"
-        print("This is a hit! You sunk an opponent's ship")
-        return shots_board
-
-    elif shots_board[row][col] == "X" or shots_board[row+1][col] == "X" or shots_board[row-1][col] == "X" or shots_board[row][col+1] == "X" or shots_board[row][col-1] == "X":
-        shots_board[row][col] == "H"
-        print("This is a hit! But your opponent's ship is still sailing!")
-        return shots_board
-
-    elif shots_board[row][col] == "X" or shots_board[row+1][col] == "H" or shots_board[row-1][col] == "H" or shots_board[row][col+1] == "H" or shots_board[row][col-1] == "H":
-        shots_board[row][col] == "S"
-        print("This is a hit! You sunk an opponent's ship")
-        for i in range_of_search:
-            if i == "H":
-                i = "S" 
-        return shots_board
-
-
-
-# def get_human_coordinates(board):
-#     while True:
-#         user_input = get_input_from_user()
-#         if validate_user_input(user_input):
-#             if user_input.lower() == 'q':
-#                 quit()
-#             dict_user_input = user_input_to_coordinates(user_input)
-#             #print(tuple_user_input, list_all_available_coordinates(board))
-#             if check_available_coordinate(board, tuple_user_input):
-#                 return tuple_user_input
-#             else:
-#                 warning_msg_already_taken()
-#         else:
-#             warning_message_outside_board()
-
-# def warning_message_outside_board():
-#     print('You choose wrong place on the board')
-
-# def warning_msg_already_taken():
-#     print('This position was already taken')        
 
 
 def main():
@@ -231,10 +187,10 @@ def main():
 
         match player:
             case "Player 1":
-                shots_board = players_2_shots_board
+                shots_board = players_1_shots_board
                 ships_board = players_2_ships_board
             case "Player 2":
-                shots_board = players_1_shots_board
+                shots_board = players_2_shots_board
                 ships_board = players_1_ships_board
 
         validation_indicator_2 = False
@@ -248,24 +204,28 @@ def main():
                 row, col = user_input_to_coordinates_with_validation(user_input)
             validation_indicator_2 = check_available_coordinate(shots_board, row, col)
 
-        mark_on_board(shots_board, ships_board, row, col)
+    try:
 
+        wheather_shots_repetion_necessary = True
+        while wheather_shots_repetion_necessary == True:
+            shots_board, wheather_shots_repetion_necessary = mark_on_board(shots_board, ships_board, row, col)
+
+    except:
+        print ('Error while marking on shot\'s board')
+        
         match player:
             case "Player 1":
-                players_2_shots_board = shots_board
-            case "Player 2":
                 players_1_shots_board = shots_board
-
-        
+                player = 'Player 2'
+            case "Player 2":
+                players_2_shots_board = shots_board
+                player = 'Player 1'
+       
         print (shots_board)
 
 
 
-        match player:
-            case 'Player 1':
-                player = 'Player 2'
-            case 'Player 2':
-                player = 'Player 1'
+       
 
         # game_run_indicator = True
 
