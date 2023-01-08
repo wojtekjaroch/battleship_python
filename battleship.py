@@ -149,7 +149,18 @@ def mark_on_board(shots_board, ships_board, row, col):     #ma być zmienna przy
                     wheather_shots_repetion_necessary = False
     return shots_board, wheather_shots_repetion_necessary
 
+def display_board(shots_board):
 
+    board = (f"""
+        1   2   3
+    A   {shots_board[0][0]}   {shots_board[0][1]}   {shots_board[0][2]}   {shots_board[0][3]}   {shots_board[0][4]} 
+    B   {shots_board[1][0]}   {shots_board[1][1]}   {shots_board[1][2]}   {shots_board[1][3]}   {shots_board[1][4]}  
+    C   {shots_board[2][0]}   {shots_board[2][1]}   {shots_board[2][2]}   {shots_board[2][3]}   {shots_board[2][4]}  
+    D   {shots_board[3][0]}   {shots_board[3][1]}   {shots_board[3][2]}   {shots_board[3][3]}   {shots_board[3][4]}  
+    E   {shots_board[4][0]}   {shots_board[4][1]}   {shots_board[4][2]}   {shots_board[4][3]}   {shots_board[4][4]}
+    """)
+
+    print(f'\nCurrent bord layout:\n{board}')
 
 
 
@@ -216,7 +227,7 @@ def main():
                 while validation_indicator_1 == False:
                     user_input = get_input_from_user(player)
                     if user_input == 'q':
-                        quit_game()
+                        quit_game(user_input)
                     validation_indicator_1 = validate_user_input(user_input)
                 row, col = user_input_to_coordinates_with_validation(user_input)
             validation_indicator_2 = check_available_coordinate(shots_board, row, col)
@@ -242,13 +253,9 @@ def main():
                 players_2_shots_board = shots_board
                 player = 'Player 1'
 
-        print (shots_board)
-
-
-
-       
-
-        # game_run_indicator = True
+        display_board(shots_board)
+      
+        game_run_indicator = True
 
 
 
