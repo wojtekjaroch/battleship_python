@@ -52,17 +52,17 @@ os.system('cls')
 
 #---------------------------------------------------------------------------------------------------
 
-imie_kuzyna = 'Zbyszek'
-imie_babci = 'Henia'
+# imie_kuzyna = 'Zbyszek'
+# imie_babci = 'Henia'
 
-if imie_kuzyna == 'Konrad':
-        print ('imie_kuzyna OK')
-elif imie_babci == 'Henia':
-        print ('imie_babci OK')
+# if imie_kuzyna == 'Konrad':
+#         print ('imie_kuzyna OK')
+# elif imie_babci == 'Henia':
+#         print ('imie_babci OK')
 
 
 
-print('koniec')
+# print('koniec')
 
 
 #---------------------------------------------------------------------------------------------------
@@ -86,6 +86,9 @@ print('koniec')
 #---------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 
+ships_board =['X', 'o', 'O', 'Y', 'X']
 
+ships_number_to_sink = ships_board.count('X')
 
+print (ships_number_to_sink)
 

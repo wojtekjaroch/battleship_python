@@ -82,6 +82,21 @@ def user_input_to_coordinates_with_validation(user_input):
 
     return row, col
 
+def check_if_somebody_won(shots_board, ships_board):
+    ships_number_to_sink = 0
+    for ships_board_row in ships_board:
+        ships_number_to_sink = ships_number_to_sink + ships_board_row.count('X')
+
+    sunk_ships_number = 0
+    for shots_board_row in shots_board:
+        sunk_ships_number = sunk_ships_number + shots_board_row.count('S')
+
+    if ships_number_to_sink == sunk_ships_number:
+        return True
+    else:
+        return False
+
+
 
 
 def mark_on_board(shots_board, ships_board, row, col):     #ma być zmienna przyjeta od gracza, chyba user_move ==> sprawdzić w testach
@@ -147,10 +162,10 @@ def main():
 
 
     players_1_ships_board = [
-        ['X', 'X', '0', '0', '0'],
+        ['X', '0', '0', '0', '0'],
         ['0', '0', '0', '0', '0'],
-        ['0', '0', 'X', '0', '0'],
-        ['0', '0', '0', 'X', '0'],
+        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0'],
         ['0', '0', '0', '0', '0']
         ]
 
@@ -179,11 +194,12 @@ def main():
         ]
 
 
-    game_run_indicator = True
+
     player = 'Player 1'
 
-    while game_run_indicator == True:
 
+    game_run_indicator = True   
+    while game_run_indicator == True:
         match player:
             case 'Player 1':
                 shots_board = players_1_shots_board
@@ -199,28 +215,34 @@ def main():
                 validation_indicator_1 = False
                 while validation_indicator_1 == False:
                     user_input = get_input_from_user(player)
+                    if user_input == 'q':
+                        quit_game()
                     validation_indicator_1 = validate_user_input(user_input)
                 row, col = user_input_to_coordinates_with_validation(user_input)
             validation_indicator_2 = check_available_coordinate(shots_board, row, col)
 
-            try:
+        # try:
 
-                wheather_shots_repetion_necessary = True
-                while wheather_shots_repetion_necessary == True:
-                    shots_board, wheather_shots_repetion_necessary = mark_on_board(shots_board, ships_board, row, col)
+        wheather_shots_repetion_necessary = True
+        while wheather_shots_repetion_necessary == True:
+            shots_board, wheather_shots_repetion_necessary = mark_on_board(shots_board, ships_board, row, col)
+            
+            if check_if_somebody_won(shots_board, ships_board) == True:
+                print(f'{player} won !')
+                exit()
 
-            except:
-                print ('Error while marking on shot\'s board')
-        
-            match player:
-                case 'Player 1':
-                    players_1_shots_board = shots_board
-                    player = 'Player 2'
-                case 'Player 2':
-                    players_2_shots_board = shots_board
-                    player = 'Player 1'
-        
-            print (shots_board)
+        # except:
+        # print ('Error while marking on shot\'s board')
+
+        match player:
+            case 'Player 1':
+                players_1_shots_board = shots_board
+                player = 'Player 2'
+            case 'Player 2':
+                players_2_shots_board = shots_board
+                player = 'Player 1'
+
+        print (shots_board)
 
 
 
