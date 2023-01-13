@@ -86,9 +86,48 @@ os.system('cls')
 #---------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 
-ships_board =['X', 'o', 'O', 'Y', 'X']
+# ships_board =['X', 'o', 'O', 'Y', 'X']
 
-ships_number_to_sink = ships_board.count('X')
+# ships_number_to_sink = ships_board.count('X')
 
-print (ships_number_to_sink)
+# print (ships_number_to_sink)
+
+
+#---------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
+
+
+
+# def display_board(fields_of_board_content):
+
+#   board = (f"""
+#       1   2   3
+#   A   {fields_of_board_content[0][0]} | {fields_of_board_content[0][1]} | {fields_of_board_content[0][2]} 
+#   B   {fields_of_board_content[1][0]} | {fields_of_board_content[1][1]} | {fields_of_board_content[1][2]} 
+#   C   {fields_of_board_content[2][0]} | {fields_of_board_content[2][1]} | {fields_of_board_content[2][2]} 
+#   """)
+
+#   print(f'\nCurrent bord layout:\n{board}')
+# a = 1
+# b = 2
+# def multiply(a, b):
+#   a = float(a)
+#   b = float(b)
+#   c = a *b
+#   print(c)
+# 
+# a = float(input("Please, input the first number"))
+# b = float(input("Please, input the second number"))
+# c = a * b
+# print(c)
+
+def multiply(a, b):
+  while True:
+    a = float(input("Please, input the first number"))
+    b = float(input("Please, input the second number"))
+    c = a * b
+    print(c)
+    return c
+multiply(a, b)
+
 
