@@ -249,9 +249,13 @@ def main():
             case 'Player 1':
                 players_1_shots_board = shots_board
                 player = 'Player 2'
+                os.system('cls')
+
             case 'Player 2':
                 players_2_shots_board = shots_board
                 player = 'Player 1'
+                os.system('cls')
+
 
         display_board(shots_board)
       
